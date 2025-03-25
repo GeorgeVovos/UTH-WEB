@@ -1,0 +1,210 @@
+{
+  "AlumniRecords": {
+    "Alumni": [
+      {
+        "id": "1",
+        "PersonalInfo": {
+          "FirstName": "John",
+          "AcademicYearOfAdmission": "2015",
+          "GraduationDate": "06/2020",
+          "DegreeGrade": "8.5"
+        },
+        "Origin": {
+          "region": "Attica",
+          "city": "Athens"
+        },
+        "CurrentAddress": {
+          "Street": "123 Main St",
+          "Number": "45",
+          "City": "Thessaloniki",
+          "PostalCode": "54624",
+          "Country": "Greece"
+        },
+        "Phones": {
+          "Phone": [
+            {
+              "type": "landline",
+              "number": "+30 210 1234567"
+            },
+            {
+              "type": "mobile",
+              "number": "+30 698 1234567"
+            }
+          ]
+        },
+        "Email": "john.doe@example.com",
+        "PersonalWebsite": "http://www.johndoe.com",
+        "SocialNetworks": {
+          "SocialNetwork": [
+            {
+              "type": "Facebook",
+              "url": "http://www.facebook.com/johndoe"
+            },
+            {
+              "type": "Instagram",
+              "url": "http://www.instagram.com/johndoe"
+            },
+            {
+              "type": "X",
+              "url": "http://www.x.com/johndoe"
+            },
+            {
+              "type": "Twitter",
+              "url": "http://www.x.com/johndoe"
+            }
+          ]
+        },
+        "Employments": {
+          "Employment": [
+            {
+              "Employer": "Company A",
+              "EmployerSite": "http://www.companya.com",
+              "EmploymentPeriod": {
+                "from": "01/2021",
+                "to": "12/2022"
+              },
+              "JobField": "Related to studies",
+              "JobDetails": "Software Development",
+              "EmployerLocation": {
+                "latitude": "37.9838",
+                "longitude": "23.7275"
+              }
+            },
+            {
+              "Employer": "Company B",
+              "EmployerSite": "http://www.companyb.com",
+              "EmploymentPeriod": {
+                "from": "01/2023",
+                "to": "Present"
+              },
+              "JobField": "Not related to studies",
+              "JobDetails": "Marketing",
+              "EmployerLocation": {
+                "latitude": "40.6401",
+                "longitude": "22.9444"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "PersonalInfo": {
+          "FirstName": "Jane",
+          "LastName": "Smith",
+          "AcademicYearOfAdmission": "2016",
+          "GraduationDate": "07/2021",
+          "DegreeGrade": "9.0"
+        },
+        "Origin": {
+          "region": "Crete",
+          "city": "Heraklion"
+        },
+        "CurrentAddress": {
+          "Street": "456 Elm St",
+          "Number": "78",
+          "City": "Patras",
+          "PostalCode": "26223",
+          "Country": "Greece"
+        },
+        "Phones": {
+          "Phone": [
+            {
+              "type": "landline",
+              "number": "+30 261 0123456"
+            }
+          ]
+        },
+        "Email": "jane.smith@example.com",
+        "PersonalWebsite": "http://www.janesmith.com",
+        "SocialNetworks": {
+          "SocialNetwork": [
+            {
+              "type": "Facebook",
+              "url": "http://www.facebook.com/janesmith"
+            },
+            {
+              "type": "Instagram",
+              "url": "http://www.instagram.com/janesmith"
+            },
+            {
+              "type": "X",
+              "url": "http://www.x.com/janesmith"
+            }
+          ]
+        },
+        "Employments": {
+          "Employment": [
+            {
+              "Employer": "Company C",
+              "EmployerSite": "http://www.companyc.com",
+              "EmploymentPeriod": {
+                "from": "02/2022",
+                "to": "Present"
+              },
+              "JobField": "Related to studies",
+              "JobDetails": "Data Analysis",
+              "EmployerLocation": {
+                "latitude": "35.3387",
+                "longitude": "25.1442"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "3",
+        "PersonalInfo": {
+          "FirstName": "Michael",
+          "LastName": "Johnson",
+          "AcademicYearOfAdmission": "2017",
+          "GraduationDate": "05/2022",
+          "DegreeGrade": "7.8"
+        },
+        "Origin": {
+          "region": "Thessaly",
+          "city": "Larissa"
+        },
+        "CurrentAddress": {
+          "Street": "789 Pine St",
+          "Number": "12",
+          "City": "Volos",
+          "PostalCode": "38334",
+          "Country": "Greece"
+        },
+        "Phones": {
+          "Phone": [
+            {
+              "type": "landline",
+              "number": "+30 242 0123456"
+            },
+            {
+              "type": "mobile",
+              "number": "+30 693 0123456"
+            }
+          ]
+        },
+        "Email": "michael.johnson@example.com",
+        "PersonalWebsite": "http://www.michaeljohnson.com",
+        "Employments": {
+          "Employment": [
+            {
+              "Employer": "Company D",
+              "EmployerSite": "http://www.companyd.com",
+              "EmploymentPeriod": {
+                "from": "03/2023",
+                "to": "Present"
+              },
+              "JobField": "Not related to studies",
+              "JobDetails": "Customer Support",
+              "EmployerLocation": {
+                "latitude": "39.6390",
+                "longitude": "22.4191"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
