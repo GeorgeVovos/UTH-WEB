@@ -6,7 +6,7 @@
     <style>
         button {
             width: 150px;
-            /*margin-bottom: 10px;*/
+            margin-bottom: 10px;
         }
 
         h2 {
@@ -30,15 +30,22 @@
                 if (xhr.status === 200) {
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(xhr.responseText, "application/xml");
-                    var responseHtml = "<h2>Data (XML)</h2>";;
+                    var responseHtml = "<h2>Data (XML)</h2>";
 
                     const alumniRecords = xmlDoc.getElementsByTagName("Alumni");
                     for (let i = 0; i < alumniRecords.length; i++) {
                         const alumni = alumniRecords[i];
-                        const id = alumni.getAttribute("id");
-                        const firstName = alumni.getElementsByTagName("FirstName")[0].textContent;
-                        const lastName = alumni.getElementsByTagName("LastName")[0]?.textContent || "";
-                        responseHtml += `<p>ID: ${id}, Name: ${firstName} ${lastName}</p>`;
+                        responseHtml += generateAlumniHtml({
+                            id: alumni.getAttribute("id"),
+                            firstName: alumni.getElementsByTagName("FirstName")[0].textContent,
+                            lastName: alumni.getElementsByTagName("LastName")[0]?.textContent || "",
+                            academicYear: alumni.getElementsByTagName("AcademicYearOfAdmission")[0]?.textContent || "",
+                            graduationDate: alumni.getElementsByTagName("GraduationDate")[0]?.textContent || "",
+                            phones: Array.from(alumni.getElementsByTagName("Phone")).map(phone => ({
+                                type: phone.getAttribute("type"),
+                                number: phone.textContent
+                            }))
+                        });
                     }
 
                     displayData(responseHtml);
@@ -53,14 +60,21 @@
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     const jsonData = JSON.parse(xhr.responseText);
-                    var responseHtml = "<h2>Data (JSON)</h2>";;
+                    var responseHtml = "<h2>Data (JSON)</h2>";
 
                     const alumniRecords = jsonData.ResponseData.AlumniRecords.Alumni;
                     alumniRecords.forEach(alumni => {
-                        const id = alumni.id;
-                        const firstName = alumni.PersonalInfo.FirstName;
-                        const lastName = alumni.PersonalInfo.LastName || "";
-                        responseHtml += `<p>ID: ${id}, Name: ${firstName} ${lastName}</p>`;
+                        responseHtml += generateAlumniHtml({
+                            id: alumni.id,
+                            firstName: alumni.PersonalInfo.FirstName,
+                            lastName: alumni.PersonalInfo.LastName || "",
+                            academicYear: alumni.PersonalInfo.AcademicYearOfAdmission || "",
+                            graduationDate: alumni.PersonalInfo.GraduationDate || "",
+                            phones: alumni.Phones.Phone.map(phone => ({
+                                type: phone.type,
+                                number: phone.number
+                            }))
+                        });
                     });
 
                     displayData(responseHtml);
@@ -69,11 +83,21 @@
             xhr.send();
         }
 
+        function generateAlumniHtml(alumni) {
+            let html = `<p><b>ID: ${alumni.id}, Name: ${alumni.firstName} ${alumni.lastName}</b></p>`;
+            html += `<p>Academic Year: ${alumni.academicYear}, Graduation Date: ${alumni.graduationDate}</p>`;
+            html += "<p>Phones:</p><ul>";
+            alumni.phones.forEach(phone => {
+                html += `<li>Type: ${phone.type}, Number: ${phone.number}</li>`;
+            });
+            html += "</ul>";
+            return html;
+        }
+
         function displayData(responseHtml) {
             clearData();
             const rightDiv = document.getElementById("rightDiv");
             rightDiv.innerHTML = responseHtml;
-
         }
 
         function clearData() {
