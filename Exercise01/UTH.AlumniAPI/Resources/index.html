@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alumni Data</title>
+    <style>
+        #leftDiv {
+            width: 150px;
+            float: left;
+        }
+        #rightDiv {
+            margin-left: 150px;
+        }
+    </style>
+    <script>
+        function loadXMLData() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/xml", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xhr.responseText, "application/xml");
+                    var responseHtml = "<h2>Alumni Data (XML)</h2>";;
+
+                    const alumniRecords = xmlDoc.getElementsByTagName("Alumni");
+                    for (let i = 0; i < alumniRecords.length; i++) {
+                        const alumni = alumniRecords[i];
+                        const id = alumni.getAttribute("id");
+                        const firstName = alumni.getElementsByTagName("FirstName")[0].textContent;
+                        const lastName = alumni.getElementsByTagName("LastName")[0]?.textContent || "";
+                        responseHtml += `<p>ID: ${id}, Name: ${firstName} ${lastName}</p>`;
+                    }
+
+                    displayData(responseHtml);
+                }
+            };
+            xhr.send();
+        }
+
+        function loadJSONData() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/json", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const jsonData = JSON.parse(xhr.responseText);
+                    var responseHtml = "<h2>Alumni Data (JSON)</h2>";;
+  
+                    const alumniRecords = jsonData.ResponseData.AlumniRecords.Alumni;
+                    alumniRecords.forEach(alumni => {
+                        const id = alumni.id;
+                        const firstName = alumni.PersonalInfo.FirstName;
+                        const lastName = alumni.PersonalInfo.LastName || "";
+                        responseHtml += `<p>ID: ${id}, Name: ${firstName} ${lastName}</p>`;
+                    });
+
+                    displayData(responseHtml);
+                }
+            };
+            xhr.send();
+        }
+
+        function displayData(responseHtml) {
+            clearData();
+            const rightDiv = document.getElementById("rightDiv");
+            rightDiv.innerHTML = responseHtml;
+
+        }
+
+        function clearData() {
+            document.getElementById("rightDiv").innerHTML = "";
+        }
+    </script>
+</head>
+<body>
+<h1 style="text-align: center">Alumni Data </h1>
+<div id="leftDiv">
+    <button onclick="loadXMLData()">Load XML Data</button>
+    <button onclick="loadJSONData()">Load JSON Data</button>
+    <button onclick="clearData()">Clear Data</button>
+</div>
+<div id="rightDiv">
+    <!-- Data will be displayed here -->
+</div>
+</body>
+</html>

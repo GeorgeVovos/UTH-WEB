@@ -8,10 +8,14 @@
 
   <ItemGroup>
     <None Remove="Resources\AlumniData.xml" />
+    <None Remove="Resources\index.html" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\AlumniData.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
