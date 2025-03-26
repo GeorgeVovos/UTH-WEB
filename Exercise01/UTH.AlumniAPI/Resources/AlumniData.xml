@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE AlumniRecords [
+<!DOCTYPE ResponseData [
+  <!ELEMENT ResponseData (CallerInfo, AlumniRecords)>
+  <!ELEMENT CallerInfo (GeoCoordinates, CallTimestamp, SystemMessage?, Username?)>
+  <!ELEMENT GeoCoordinates (Latitude, Longitude)>
+  <!ELEMENT Latitude (#PCDATA)>
+  <!ELEMENT Longitude (#PCDATA)>
+  <!ELEMENT CallTimestamp (#PCDATA)>
+  <!ELEMENT SystemMessage (#PCDATA)>
+  <!ELEMENT Username (#PCDATA)>
   <!ELEMENT AlumniRecords (Alumni*)>
   <!ELEMENT Alumni (PersonalInfo?, Origin?, CurrentAddress?, Phones?, Email?, PersonalWebsite?, SocialNetworks?, Employments?)>
   <!ATTLIST Alumni id CDATA #REQUIRED>
@@ -39,125 +47,136 @@
   <!ATTLIST EmployerLocation latitude CDATA #IMPLIED>
   <!ATTLIST EmployerLocation longitude CDATA #IMPLIED>
 ]>
-<AlumniRecords>
-  <!-- Record for John Doe -->
-  <Alumni id="1">
-    <PersonalInfo>
-      <FirstName>John</FirstName>
-      <!--<LastName>Doe</LastName>-->
-      <AcademicYearOfAdmission>2015</AcademicYearOfAdmission>
-      <GraduationDate>06/2020</GraduationDate>
-      <DegreeGrade>8.5</DegreeGrade>
-    </PersonalInfo>
-    <Origin region="Attica" city="Athens"/>
-    <CurrentAddress>
-      <Street>123 Main St</Street>
-      <Number>45</Number>
-      <City>Thessaloniki</City>
-      <PostalCode>54624</PostalCode>
-      <Country>Greece</Country>
-    </CurrentAddress>
-    <Phones>
-      <Phone type="landline">+30 210 1234567</Phone>
-      <Phone type="mobile">+30 698 1234567</Phone>
-    </Phones>
-    <Email>john.doe@example.com</Email>
-    <PersonalWebsite>http://www.johndoe.com</PersonalWebsite>
-    <SocialNetworks>
-      <SocialNetwork type="Facebook">http://www.facebook.com/johndoe</SocialNetwork>
-      <SocialNetwork type="Instagram">http://www.instagram.com/johndoe</SocialNetwork>
-      <SocialNetwork type="X">http://www.x.com/johndoe</SocialNetwork>
-      <SocialNetwork type="Twitter">http://www.x.com/johndoe</SocialNetwork>
-    </SocialNetworks>
-    <Employments>
-      <Employment>
-        <Employer>Company A</Employer>
-        <EmployerSite>http://www.companya.com</EmployerSite>
-        <EmploymentPeriod from="01/2021" to="12/2022"/>
-        <JobField>Related to studies</JobField>
-        <JobDetails>Software Development</JobDetails>
-        <EmployerLocation latitude="37.9838" longitude="23.7275"/>
-      </Employment>
-      <Employment>
-        <Employer>Company B</Employer>
-        <EmployerSite>http://www.companyb.com</EmployerSite>
-        <EmploymentPeriod from="01/2023" to="Present"/>
-        <JobField>Not related to studies</JobField>
-        <JobDetails>Marketing</JobDetails>
-        <EmployerLocation latitude="40.6401" longitude="22.9444"/>
-      </Employment>
-    </Employments>
-  </Alumni>
-  <!-- Record for Jane Smith -->
-  <Alumni id="2">
-    <PersonalInfo>
-      <FirstName>Jane</FirstName>
-      <LastName>Smith</LastName>
-      <AcademicYearOfAdmission>2016</AcademicYearOfAdmission>
-      <GraduationDate>07/2021</GraduationDate>
-      <DegreeGrade>9.0</DegreeGrade>
-    </PersonalInfo>
-    <Origin region="Crete" city="Heraklion"/>
-    <CurrentAddress>
-      <Street>456 Elm St</Street>
-      <Number>78</Number>
-      <City>Patras</City>
-      <PostalCode>26223</PostalCode>
-      <Country>Greece</Country>
-    </CurrentAddress>
-    <Phones>
-      <Phone type="landline">+30 261 0123456</Phone>
-    </Phones>
-    <Email>jane.smith@example.com</Email>
-    <PersonalWebsite>http://www.janesmith.com</PersonalWebsite>
-    <SocialNetworks>
-      <SocialNetwork type="Facebook">http://www.facebook.com/janesmith</SocialNetwork>
-      <SocialNetwork type="Instagram">http://www.instagram.com/janesmith</SocialNetwork>
-      <SocialNetwork type="X">http://www.x.com/janesmith</SocialNetwork>
-    </SocialNetworks>
-    <Employments>
-      <Employment>
-        <Employer>Company C</Employer>
-        <EmployerSite>http://www.companyc.com</EmployerSite>
-        <EmploymentPeriod from="02/2022" to="Present"/>
-        <JobField>Related to studies</JobField>
-        <JobDetails>Data Analysis</JobDetails>
-        <EmployerLocation latitude="35.3387" longitude="25.1442"/>
-      </Employment>
-    </Employments>
-  </Alumni>
-  <!-- Record for Michael Johnson -->
-  <Alumni id="3">
-    <PersonalInfo>
-      <FirstName>Michael</FirstName>
-      <LastName>Johnson</LastName>
-      <AcademicYearOfAdmission>2017</AcademicYearOfAdmission>
-      <GraduationDate>05/2022</GraduationDate>
-      <DegreeGrade>7.8</DegreeGrade>
-    </PersonalInfo>
-    <Origin region="Thessaly" city="Larissa"/>
-    <CurrentAddress>
-      <Street>789 Pine St</Street>
-      <Number>12</Number>
-      <City>Volos</City>
-      <PostalCode>38334</PostalCode>
-      <Country>Greece</Country>
-    </CurrentAddress>
-    <Phones>
-      <Phone type="landline">+30 242 0123456</Phone>
-      <Phone type="mobile">+30 693 0123456</Phone>
-    </Phones>
-    <Email>michael.johnson@example.com</Email>
-    <PersonalWebsite>http://www.michaeljohnson.com</PersonalWebsite>
-    <Employments>
-      <Employment>
-        <Employer>Company D</Employer>
-        <EmployerSite>http://www.companyd.com</EmployerSite>
-        <EmploymentPeriod from="03/2023" to="Present"/>
-        <JobField>Not related to studies</JobField>
-        <JobDetails>Customer Support</JobDetails>
-        <EmployerLocation latitude="39.6390" longitude="22.4191"/>
-      </Employment>
-    </Employments>
-  </Alumni>
-</AlumniRecords>
+<ResponseData>
+  <CallerInfo>
+    <GeoCoordinates>
+      <Latitude>37.9838</Latitude>
+      <Longitude>23.7275</Longitude>
+    </GeoCoordinates>
+    <CallTimestamp>2025-03-26T14:30:00Z</CallTimestamp>
+    <SystemMessage>Request processed successfully</SystemMessage>
+    <Username>john.doe</Username>
+  </CallerInfo>
+  <AlumniRecords>
+    <!-- Record for John Doe -->
+    <Alumni id="1">
+      <PersonalInfo>
+        <FirstName>John</FirstName>
+        <!-- <LastName>Doe</LastName> -->
+        <AcademicYearOfAdmission>2015</AcademicYearOfAdmission>
+        <GraduationDate>06/2020</GraduationDate>
+        <DegreeGrade>8.5</DegreeGrade>
+      </PersonalInfo>
+      <Origin region="Attica" city="Athens" />
+      <CurrentAddress>
+        <Street>123 Main St</Street>
+        <Number>45</Number>
+        <City>Thessaloniki</City>
+        <PostalCode>54624</PostalCode>
+        <Country>Greece</Country>
+      </CurrentAddress>
+      <Phones>
+        <Phone type="landline">+30 210 1234567</Phone>
+        <Phone type="mobile">+30 698 1234567</Phone>
+      </Phones>
+      <Email>john.doe@example.com</Email>
+      <PersonalWebsite>http://www.johndoe.com</PersonalWebsite>
+      <SocialNetworks>
+        <SocialNetwork type="Facebook">http://www.facebook.com/johndoe</SocialNetwork>
+        <SocialNetwork type="Instagram">http://www.instagram.com/johndoe</SocialNetwork>
+        <SocialNetwork type="X">http://www.x.com/johndoe</SocialNetwork>
+        <SocialNetwork type="Twitter">http://www.x.com/johndoe</SocialNetwork>
+      </SocialNetworks>
+      <Employments>
+        <Employment>
+          <Employer>Company A</Employer>
+          <EmployerSite>http://www.companya.com</EmployerSite>
+          <EmploymentPeriod from="01/2021" to="12/2022" />
+          <JobField>Related to studies</JobField>
+          <JobDetails>Software Development</JobDetails>
+          <EmployerLocation latitude="37.9838" longitude="23.7275" />
+        </Employment>
+        <Employment>
+          <Employer>Company B</Employer>
+          <EmployerSite>http://www.companyb.com</EmployerSite>
+          <EmploymentPeriod from="01/2023" to="Present" />
+          <JobField>Not related to studies</JobField>
+          <JobDetails>Marketing</JobDetails>
+          <EmployerLocation latitude="40.6401" longitude="22.9444" />
+        </Employment>
+      </Employments>
+    </Alumni>
+    <!-- Record for Jane Smith -->
+    <Alumni id="2">
+      <PersonalInfo>
+        <FirstName>Jane</FirstName>
+        <LastName>Smith</LastName>
+        <AcademicYearOfAdmission>2016</AcademicYearOfAdmission>
+        <GraduationDate>07/2021</GraduationDate>
+        <DegreeGrade>9.0</DegreeGrade>
+      </PersonalInfo>
+      <Origin region="Crete" city="Heraklion" />
+      <CurrentAddress>
+        <Street>456 Elm St</Street>
+        <Number>78</Number>
+        <City>Patras</City>
+        <PostalCode>26223</PostalCode>
+        <Country>Greece</Country>
+      </CurrentAddress>
+      <Phones>
+        <Phone type="landline">+30 261 0123456</Phone>
+      </Phones>
+      <Email>jane.smith@example.com</Email>
+      <PersonalWebsite>http://www.janesmith.com</PersonalWebsite>
+      <SocialNetworks>
+        <SocialNetwork type="Facebook">http://www.facebook.com/janesmith</SocialNetwork>
+        <SocialNetwork type="Instagram">http://www.instagram.com/janesmith</SocialNetwork>
+        <SocialNetwork type="X">http://www.x.com/janesmith</SocialNetwork>
+      </SocialNetworks>
+      <Employments>
+        <Employment>
+          <Employer>Company C</Employer>
+          <EmployerSite>http://www.companyc.com</EmployerSite>
+          <EmploymentPeriod from="02/2022" to="Present" />
+          <JobField>Related to studies</JobField>
+          <JobDetails>Data Analysis</JobDetails>
+          <EmployerLocation latitude="35.3387" longitude="25.1442" />
+        </Employment>
+      </Employments>
+    </Alumni>
+    <!-- Record for Michael Johnson -->
+    <Alumni id="3">
+      <PersonalInfo>
+        <FirstName>Michael</FirstName>
+        <LastName>Johnson</LastName>
+        <AcademicYearOfAdmission>2017</AcademicYearOfAdmission>
+        <GraduationDate>05/2022</GraduationDate>
+        <DegreeGrade>7.8</DegreeGrade>
+      </PersonalInfo>
+      <Origin region="Thessaly" city="Larissa" />
+      <CurrentAddress>
+        <Street>789 Pine St</Street>
+        <Number>12</Number>
+        <City>Volos</City>
+        <PostalCode>38334</PostalCode>
+        <Country>Greece</Country>
+      </CurrentAddress>
+      <Phones>
+        <Phone type="landline">+30 242 0123456</Phone>
+        <Phone type="mobile">+30 693 0123456</Phone>
+      </Phones>
+      <Email>michael.johnson@example.com</Email>
+      <PersonalWebsite>http://www.michaeljohnson.com</PersonalWebsite>
+      <Employments>
+        <Employment>
+          <Employer>Company D</Employer>
+          <EmployerSite>http://www.companyd.com</EmployerSite>
+          <EmploymentPeriod from="03/2023" to="Present" />
+          <JobField>Not related to studies</JobField>
+          <JobDetails>Customer Support</JobDetails>
+          <EmployerLocation latitude="39.6390" longitude="22.4191" />
+        </Employment>
+      </Employments>
+    </Alumni>
+  </AlumniRecords>
+</ResponseData>
