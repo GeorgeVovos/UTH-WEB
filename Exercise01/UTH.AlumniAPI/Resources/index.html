@@ -2,14 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Alumni Data</title>
+    <title>Alumni Data Viewer</title>
     <style>
-        #leftDiv {
+        button {
             width: 150px;
+            /*margin-bottom: 10px;*/
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        #leftDiv {
+            width: 160px;
             float: left;
         }
+
         #rightDiv {
-            margin-left: 150px;
+            padding-left: 170px;
         }
     </style>
     <script>
@@ -20,7 +30,7 @@
                 if (xhr.status === 200) {
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(xhr.responseText, "application/xml");
-                    var responseHtml = "<h2>Alumni Data (XML)</h2>";;
+                    var responseHtml = "<h2>Data (XML)</h2>";;
 
                     const alumniRecords = xmlDoc.getElementsByTagName("Alumni");
                     for (let i = 0; i < alumniRecords.length; i++) {
@@ -43,8 +53,8 @@
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     const jsonData = JSON.parse(xhr.responseText);
-                    var responseHtml = "<h2>Alumni Data (JSON)</h2>";;
-  
+                    var responseHtml = "<h2>Data (JSON)</h2>";;
+
                     const alumniRecords = jsonData.ResponseData.AlumniRecords.Alumni;
                     alumniRecords.forEach(alumni => {
                         const id = alumni.id;
@@ -69,17 +79,30 @@
         function clearData() {
             document.getElementById("rightDiv").innerHTML = "";
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("loadXMLButton").onclick = loadXMLData;
+            document.getElementById("loadJSONButton").onclick = loadJSONData;
+            document.getElementById("clearButton").onclick = clearData;
+        });
     </script>
 </head>
 <body>
-<h1 style="text-align: center">Alumni Data </h1>
-<div id="leftDiv">
-    <button onclick="loadXMLData()">Load XML Data</button>
-    <button onclick="loadJSONData()">Load JSON Data</button>
-    <button onclick="clearData()">Clear Data</button>
-</div>
-<div id="rightDiv">
-    <!-- Data will be displayed here -->
-</div>
+    <h1>UTH Alumni Data </h1>
+    Data is loaded from <br />
+    <a target="_blank" href="https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/json">https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/json</a>
+    <br />
+    and
+    <br />
+    <a target="_blank" href="https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/xml">https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/xml</a>
+    <hr />
+    <div id="leftDiv">
+        <button id="loadXMLButton">Load XML Data</button>
+        <button id="loadJSONButton">Load JSON Data</button>
+        <button id="clearButton">Clear Data</button>
+    </div>
+    <div id="rightDiv">
+        <!-- Data will be displayed here -->
+    </div>
 </body>
 </html>
