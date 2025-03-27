@@ -24,63 +24,68 @@
     </style>
     <script>
         function loadXMLData() {
+            loadServerData("https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/xml", handleXml);
+        }
+
+        function loadJSONData() {
+            loadServerData("https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/json", handleJson);
+        }
+
+        function loadServerData(url, responseHandler) {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/xml", true);
+            xhr.open("GET", url, true);
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    const parser = new DOMParser();
-                    const xmlDoc = parser.parseFromString(xhr.responseText, "application/xml");
-                    var responseHtml = "<h2>Data (XML)</h2>";
-
-                    const alumniRecords = xmlDoc.getElementsByTagName("Alumni");
-                    for (let i = 0; i < alumniRecords.length; i++) {
-                        const alumni = alumniRecords[i];
-                        responseHtml += generateAlumniHtml({
-                            id: alumni.getAttribute("id"),
-                            firstName: alumni.getElementsByTagName("FirstName")[0].textContent,
-                            lastName: alumni.getElementsByTagName("LastName")[0]?.textContent || "",
-                            academicYear: alumni.getElementsByTagName("AcademicYearOfAdmission")[0]?.textContent || "",
-                            graduationDate: alumni.getElementsByTagName("GraduationDate")[0]?.textContent || "",
-                            phones: Array.from(alumni.getElementsByTagName("Phone")).map(phone => ({
-                                type: phone.getAttribute("type"),
-                                number: phone.textContent
-                            }))
-                        });
-                    }
-
-                    displayData(responseHtml);
+                    displayData(responseHandler(xhr.responseText));
                 }
             };
             xhr.send();
         }
 
-        function loadJSONData() {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/json", true);
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    const jsonData = JSON.parse(xhr.responseText);
-                    var responseHtml = "<h2>Data (JSON)</h2>";
+        function handleXml(responseText) {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(responseText, "application/xml");
+            var responseHtml = "<h2>Data (XML2)</h2>";
 
-                    const alumniRecords = jsonData.ResponseData.AlumniRecords.Alumni;
-                    alumniRecords.forEach(alumni => {
-                        responseHtml += generateAlumniHtml({
-                            id: alumni.id,
-                            firstName: alumni.PersonalInfo.FirstName,
-                            lastName: alumni.PersonalInfo.LastName || "",
-                            academicYear: alumni.PersonalInfo.AcademicYearOfAdmission || "",
-                            graduationDate: alumni.PersonalInfo.GraduationDate || "",
-                            phones: alumni.Phones.Phone.map(phone => ({
-                                type: phone.type,
-                                number: phone.number
-                            }))
-                        });
-                    });
+            const alumniRecords = xmlDoc.getElementsByTagName("Alumni");
+            for (let i = 0; i < alumniRecords.length; i++) {
+                const alumni = alumniRecords[i];
+                responseHtml += generateAlumniHtml({
+                    id: alumni.getAttribute("id"),
+                    firstName: alumni.getElementsByTagName("FirstName")[0].textContent,
+                    lastName: alumni.getElementsByTagName("LastName")[0]?.textContent || "",
+                    academicYear: alumni.getElementsByTagName("AcademicYearOfAdmission")[0]?.textContent || "",
+                    graduationDate: alumni.getElementsByTagName("GraduationDate")[0]?.textContent || "",
+                    phones: Array.from(alumni.getElementsByTagName("Phone")).map(phone => ({
+                        type: phone.getAttribute("type"),
+                        number: phone.textContent
+                    }))
+                });
+            }
 
-                    displayData(responseHtml);
-                }
-            };
-            xhr.send();
+            return responseHtml;
+        }
+
+        function handleJson(responseText) {
+            const jsonData = JSON.parse(responseText);
+            var responseHtml = "<h2>Data (JSON2)</h2>";
+
+            const alumniRecords = jsonData.ResponseData.AlumniRecords.Alumni;
+            alumniRecords.forEach(alumni => {
+                responseHtml += generateAlumniHtml({
+                    id: alumni.id,
+                    firstName: alumni.PersonalInfo.FirstName,
+                    lastName: alumni.PersonalInfo.LastName || "",
+                    academicYear: alumni.PersonalInfo.AcademicYearOfAdmission || "",
+                    graduationDate: alumni.PersonalInfo.GraduationDate || "",
+                    phones: alumni.Phones.Phone.map(phone => ({
+                        type: phone.type,
+                        number: phone.number
+                    }))
+                });
+            });
+
+            return responseHtml;
         }
 
         function generateAlumniHtml(alumni) {
