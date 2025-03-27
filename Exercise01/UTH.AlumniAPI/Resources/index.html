@@ -21,6 +21,90 @@
         #rightDiv {
             padding-left: 170px;
         }
+
+        body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f9;
+                color: #333;
+                padding: 20px;
+            }
+
+        h1 {
+            background-color: #0078d7;
+            color: white;
+            padding: 10px 20px;
+            margin: 0;
+        }
+   
+        a {
+            color: #0078d7;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 20px 0;
+        }
+
+        #leftDiv {
+            background-color: #f9f9f9;
+            border-right: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            width: 160px;
+            float: left;
+        }
+
+        #rightDiv {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding-top: 2px;
+            padding-left: 200px;
+        }
+
+        button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 150px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+      
+        h2 {
+            margin-top: 0;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin: 10px 0;
+        } 
     </style>
     <script>
         function loadXMLData() {
@@ -45,7 +129,7 @@
         function handleXml(responseText) {
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(responseText, "application/xml");
-            var responseHtml = "<h2>Data (XML2)</h2>";
+            var responseHtml = "<h2>Data (XML)</h2>";
 
             const alumniRecords = xmlDoc.getElementsByTagName("Alumni");
             for (let i = 0; i < alumniRecords.length; i++) {
@@ -59,6 +143,10 @@
                     phones: Array.from(alumni.getElementsByTagName("Phone")).map(phone => ({
                         type: phone.getAttribute("type"),
                         number: phone.textContent
+                    })),
+                    socialNetworks: Array.from(alumni.getElementsByTagName("SocialNetwork")).map(network => ({
+                        type: network.getAttribute("type"),
+                        url: network.textContent
                     }))
                 });
             }
@@ -68,7 +156,7 @@
 
         function handleJson(responseText) {
             const jsonData = JSON.parse(responseText);
-            var responseHtml = "<h2>Data (JSON2)</h2>";
+            var responseHtml = "<h2>Data (JSON)</h2>";
 
             const alumniRecords = jsonData.ResponseData.AlumniRecords.Alumni;
             alumniRecords.forEach(alumni => {
@@ -81,6 +169,10 @@
                     phones: alumni.Phones.Phone.map(phone => ({
                         type: phone.type,
                         number: phone.number
+                    })),
+                    socialNetworks: alumni.SocialNetworks?.SocialNetwork.map(network => ({
+                        type: network.type,
+                        url: network.url
                     }))
                 });
             });
@@ -95,6 +187,14 @@
             alumni.phones.forEach(phone => {
                 html += `<li>Type: ${phone.type}, Number: ${phone.number}</li>`;
             });
+            html += "</ul>";
+           
+            if (alumni.socialNetworks && alumni.socialNetworks.length > 0) {
+                html += "<p>Social Media:</p><ul>";
+                alumni.socialNetworks.forEach(network => {
+                    html += `<li>Type: ${network.type}, URL: <a href="${network.url}" target="_blank">${network.url}</a></li>`;
+                });
+            }
             html += "</ul>";
             return html;
         }
