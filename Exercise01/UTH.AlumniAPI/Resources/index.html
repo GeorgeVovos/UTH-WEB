@@ -123,6 +123,10 @@
                     displayData(responseHandler(xhr.responseText));
                 }
             };
+            xhr.onerror = function () {
+                alert("Error loading data. Status: " + xhr.status);
+            };
+
             xhr.send();
         }
 
