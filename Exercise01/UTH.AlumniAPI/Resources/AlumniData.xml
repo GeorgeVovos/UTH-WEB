@@ -62,7 +62,7 @@
     <Alumni id="1">
       <PersonalInfo>
         <FirstName>John</FirstName>
-        <!-- <LastName>Doe</LastName> -->
+        <LastName>Doe</LastName>
         <AcademicYearOfAdmission>2015</AcademicYearOfAdmission>
         <GraduationDate>06/2020</GraduationDate>
         <DegreeGrade>8.5</DegreeGrade>
@@ -85,7 +85,6 @@
         <SocialNetwork type="Facebook">http://www.facebook.com/johndoe</SocialNetwork>
         <SocialNetwork type="Instagram">http://www.instagram.com/johndoe</SocialNetwork>
         <SocialNetwork type="X">http://www.x.com/johndoe</SocialNetwork>
-        <SocialNetwork type="Twitter">http://www.x.com/johndoe</SocialNetwork>
       </SocialNetworks>
       <Employments>
         <Employment>

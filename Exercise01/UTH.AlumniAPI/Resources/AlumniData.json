@@ -15,6 +15,7 @@
           "id": "1",
           "PersonalInfo": {
             "FirstName": "John",
+            "LastName": "Doe",
             "AcademicYearOfAdmission": "2015",
             "GraduationDate": "06/2020",
             "DegreeGrade": "8.5"
@@ -56,10 +57,6 @@
               },
               {
                 "type": "X",
-                "url": "http://www.x.com/johndoe"
-              },
-              {
-                "type": "Twitter",
                 "url": "http://www.x.com/johndoe"
               }
             ]
