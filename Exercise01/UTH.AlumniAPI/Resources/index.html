@@ -105,6 +105,15 @@
         p {
             margin: 10px 0;
         } 
+
+        #spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
     </style>
     <script>
         function loadXMLData() {
@@ -115,16 +124,32 @@
             loadServerData("https://uthalumniapi.azurewebsites.net/api/AlumniRawFile/json", handleJson);
         }
 
+        function showSpinner() {
+            document.getElementById("spinner").style.display = "block";
+        }
+
+        function hideSpinner() {
+            document.getElementById("spinner").style.display = "none";
+        }
+
         function loadServerData(url, responseHandler) {
+            clearData();
+            showSpinner();
             const xhr = new XMLHttpRequest();
             xhr.open("GET", url, true);
             xhr.onload = function () {
-                if (xhr.status === 200) {
-                    displayData(responseHandler(xhr.responseText));
-                }
+                setTimeout(() => {
+                    hideSpinner();
+                    if (xhr.status === 200) {
+                        displayData(responseHandler(xhr.responseText));
+                    }
+                }, 2000); // Add 2-second timeout
             };
             xhr.onerror = function () {
-                alert("Error loading data. Status: " + xhr.status);
+                setTimeout(() => {
+                    hideSpinner();
+                    alert("Error loading data. Status: " + xhr.status);
+                }, 2000); // Add 2-second timeout
             };
 
             xhr.send();
@@ -203,8 +228,7 @@
             return html;
         }
 
-        function displayData(responseHtml) {
-            clearData();
+        function displayData(responseHtml) {  
             const rightDiv = document.getElementById("rightDiv");
             rightDiv.innerHTML = responseHtml;
         }
@@ -236,6 +260,9 @@
     </div>
     <div id="rightDiv">
         <!-- Data will be displayed here -->
+    </div>
+    <div id="spinner">
+        <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQv///wAAAAAAAAAAACH5BAEAAAEALAAAAAAQABAAAAIgjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyrYAOw==" alt="Loading...">
     </div>
 </body>
 </html>
